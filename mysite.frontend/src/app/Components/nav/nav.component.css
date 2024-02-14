@@ -1,0 +1,6 @@
+.nav-background {
+  width: 100%;
+  height: 60%;
+  border-radius: 2.5vw;
+  background-color: var(--background-color);
+}

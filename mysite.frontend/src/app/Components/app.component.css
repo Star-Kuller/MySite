@@ -1,0 +1,39 @@
+#background {
+  display: grid;
+  background: url('../../assets/background.png') fixed center -40px;
+  height: auto;
+  background-size: cover;
+  min-height: 100vh;
+}
+
+.app {
+  display: grid;
+  grid-template-columns: auto 82vw auto;
+  grid-template-rows: 7.5vh auto 7.5vh;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 19% 1.8% auto;
+  grid-template-rows: 12.5% 4% auto;
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.account {
+  position: relative;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.content {
+  position: relative;
+  grid-column: 3;
+  grid-row: 1/4;
+}
+
+.nav {
+  position: relative;
+  grid-column: 1;
+  grid-row: 3;
+}

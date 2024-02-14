@@ -1,0 +1,76 @@
+:root {
+  /* Colors */
+  --background-color: rgba(0, 0, 0, 0.7);
+  --Button-primary-hover: rgba(152, 152, 152, 0.2);
+  --Primary: #FFF7EB;
+  --Accent: #EC7F42;
+  --Gray: #989898;
+
+  /* Fonts */
+  --H1: 2.8vw/1.5vw 'M_PLUS_1';
+  --H2: 2.5vw/1.5vw 'M_PLUS_1';
+  --H3: 2.2vw/1.5vw 'M_PLUS_1';
+  --H4: 1.7vw/1.5vw 'M_PLUS_1_Regular';
+  --H4Semibold: 1.7vw/1.5vw 'M_PLUS_1_SemiBold';
+  --body1: 1.4vw/1.5vw 'M_PLUS_1_Regular';
+  --body1Decotation: 1.4vw/1.5vw 'M_PLUS_1';
+  --body1Semibold: 1.4vw/1.5vw 'M_PLUS_1_SemiBold';
+  --body2: 1vw/1.5vw 'M_PLUS_1_Regular';
+  --footnote: 0.7vw/1.5vw 'M_PLUS_1';
+  --navMenu: 1.4vw/1.5vw 'Metrophobic';
+}
+
+@font-face {
+  font-family: 'M_PLUS_1';
+  src: url('assets/Fonts/M_PLUS_1/static/MPLUS1-Medium.ttf');
+}
+
+@font-face {
+  font-family: 'M_PLUS_1_SemiBold';
+  src: url('assets/Fonts/M_PLUS_1/static/MPLUS1-SemiBold.ttf');
+}
+
+@font-face {
+  font-family: 'M_PLUS_1_Regular';
+  src: url('assets/Fonts/M_PLUS_1/static/MPLUS1-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'Metrophobic';
+  src: url('assets/Fonts/Metrophobic/Metrophobic-Regular.ttf');
+}
+
+html {
+  letter-spacing: -0.3px;
+}
+
+h1 {
+  font: var(--H1);
+  color: var(--Primary);
+}
+
+h2 {
+  font: var(--H2);
+  color: var(--Primary);
+}
+
+h3 {
+  font: var(--H3);
+  color: var(--Primary);
+}
+
+h4 {
+  font: var(--H4);
+  color: var(--Primary);
+}
+
+body {
+  font: var(--body1);
+  color: var(--Primary);
+}
+
+span {
+  font: var(--body1Decotation);
+  color: var(--Primary);
+  text-decoration: underline;
+}
