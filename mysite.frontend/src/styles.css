@@ -1,12 +1,12 @@
 :root {
   /* Colors */
   --background-color: rgba(0, 0, 0, 0.7);
-  --Button-primary-hover: rgba(152, 152, 152, 0.2);
+  --Button-primary-hover: rgba(152, 152, 152, .2);
   --Primary: #FFF7EB;
   --Accent: #EC7F42;
   --Gray: #989898;
   --border: #333333;
-  --glass: rgba(51, 51, 51, 0.07);
+  --glass: rgba(51, 51, 51, .07);
 
   /* Fonts */
   --H1: 2.8vw/1.5vw 'M_PLUS_1';
@@ -18,7 +18,7 @@
   --body1Decotation: 1.4vw/1.5vw 'M_PLUS_1';
   --body1Semibold: 1.4vw/1.5vw 'M_PLUS_1_SemiBold';
   --body2: 1vw/1.5vw 'M_PLUS_1_Regular';
-  --footnote: 0.85vw/1.5vw 'M_PLUS_1';
+  --footnote: .85vw/1.5vw 'M_PLUS_1';
   --navMenu: 1.4vw/1.5vw 'Metrophobic';
   --sumbit: 1.25vw/1.5vw 'M_PLUS_1_Regular';
 
@@ -52,7 +52,7 @@
 }
 
 html {
-  letter-spacing: -0.1px;
+  letter-spacing: -.1px;
 }
 
 h1 {

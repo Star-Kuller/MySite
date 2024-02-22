@@ -1,10 +1,10 @@
 .nav-background {
+  position: relative;
   width: 100%;
   min-height: 20%;
   padding: 1.4vw;
   border-radius: 2.5vw;
   background-color: var(--background-color);
-  backdrop-filter: var(--background-blur);
 }
 
 .center {
@@ -23,6 +23,7 @@ span {
   padding: .35vw .6vw;
   border-radius: 2.5vw;
   background-color: var(--glass);
+  backdrop-filter: var(--button-blur);
 }
 
 .selected{
@@ -33,10 +34,10 @@ span {
   display: flex;
   align-items: center;
   border-radius: 2.5vw;
-  background-color: var(--glass);
   border: .27vw var(--border) solid;
   padding: .35vw .6vw;
   gap: .7vw;
+  backdrop-filter: var(--background-blur);
 }
 
 .field {
@@ -50,8 +51,8 @@ input[type="email"], input[type="password"], input[type="text"]{
   border-radius: 2.5vw;
   background-color: transparent;
   border: .27vw var(--border) solid;
-  padding: .45vw .6vw;
   backdrop-filter: var(--button-blur);
+  padding: .45vw .6vw;
 }
 
 input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focus {
