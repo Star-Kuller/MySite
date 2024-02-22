@@ -15,8 +15,6 @@ builder.Services.AddCors(o => o.AddPolicy("AllowAll", builder =>
         .WithExposedHeaders("Grpc-Status", "Grpc-Message", "Grpc-Encoding", "Grpc-Accept-Encoding");
 }));
 
-
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

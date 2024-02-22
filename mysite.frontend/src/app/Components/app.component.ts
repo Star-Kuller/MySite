@@ -10,7 +10,7 @@ import {AppModule} from "../app.module";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   imports: [
-    AppModule
+    AppModule,
   ],
   standalone: true
 })

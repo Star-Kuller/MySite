@@ -6,7 +6,7 @@ foreignObject.logoBack {
 div.logoGradient {
   width: 100%;
   height: 100%;
-  background: conic-gradient(from 180deg, transparent 1%, var(--Accent) 15%, transparent 90%);
+  background: conic-gradient(from 180deg, transparent 1%, var(--Accent) 10%, transparent 90%);
 }
 
 mask.logoBlend > path {

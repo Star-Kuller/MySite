@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'loading',
@@ -7,6 +7,4 @@ import { Component } from '@angular/core';
   templateUrl: './loading.component.html',
   styleUrl: './loading.component.css'
 })
-export class LoadingComponent {
-
-}
+export class LoadingComponent { }

@@ -6,6 +6,8 @@ import {ContentComponent} from "./Components/content/content.component";
 import {AppComponent} from "./Components/app.component";
 import {NavComponent} from "./Components/nav/nav.component";
 import {LoadingComponent} from "./loading/loading.component";
+import {NgClass, NgIf} from "@angular/common";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -15,7 +17,10 @@ import {LoadingComponent} from "./loading/loading.component";
   ],
   imports: [
     AppRoutingModule,
-    LoadingComponent
+    LoadingComponent,
+    NgIf,
+    NgClass,
+    FormsModule
   ],
   providers: [],
   exports: [

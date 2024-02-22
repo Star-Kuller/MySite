@@ -1,5 +1,5 @@
-<div class="account-background">
-  <div class="button">
+<div class="account-background" [ngClass]="{'highlighted': isAuthMode}">
+  <div class="button" (click)="AccountClick()">
     Account
   </div>
 </div>
