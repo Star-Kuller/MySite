@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import { NgForm } from '@angular/forms';
 import {MessageBusService} from "../../Services/MessageBus.service";
+import {AuthorizationService} from "../../Services/authorization.service";
+import {Login} from "../../models/Account/Login";
 
 @Component({
   selector: 'left-panel',
@@ -11,8 +12,11 @@ export class NavComponent implements OnInit {
 
   isAuthMode : boolean = false;
   isSingUp : boolean = false;
+  inputType = 'password';
 
-  constructor(private MessageBusService: MessageBusService) { }
+  loginForm : Login = new Login();
+
+  constructor(private MessageBusService: MessageBusService, private AuthorizationService: AuthorizationService) { }
 
   ngOnInit() {
     this.MessageBusService.navMode.subscribe(() => this.changeToNav());
@@ -20,15 +24,17 @@ export class NavComponent implements OnInit {
   }
 
   changeToNav() {
-    console.log('Nav');
     this.isAuthMode = false;
   }
   changeToAuth() {
-    console.log('Auth', this.isSingUp);
     this.isAuthMode = true;
   }
 
-  onSingIn(f: NgForm) {
-    console.log(f.value);
+  singIn() {
+    this.AuthorizationService.Login(this.loginForm)
+  }
+
+  singUp() {
+    console.log();
   }
 }

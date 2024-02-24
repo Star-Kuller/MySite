@@ -11,14 +11,14 @@
 
     <!--Вход-->
     <div *ngIf="!isSingUp" class="center">
-      <form #f="ngForm" (ngSubmit)="onSingIn(f)" class="center">
+      <form (ngSubmit)="singIn()" class="center">
         <div class="field">
           <label class="label-field" for="emailIn">Email</label>
-          <input type="email" id="emailIn" name="email" ngModel required>
+          <input [(ngModel)]="loginForm.Email" type="email" id="emailIn" name="email" ngModel required>
         </div>
         <div class="field">
-          <label class="label-field" for="passwordIn">Password</label>
-          <input type="password" id="passwordIn" name="password" ngModel required>
+          <label class="label-field" (mousedown)="inputType='text'" (mouseout)="inputType='password'" (mouseup)="inputType='password'" for="passwordIn">Password</label>
+          <input [(ngModel)]="loginForm.Password" [type]="inputType" id="passwordIn" name="password" ngModel required>
         </div>
         <button type="submit">Sign in</button>
       </form>
@@ -26,18 +26,18 @@
 
     <!--Регистрация-->
     <div *ngIf="isSingUp" class="center">
-      <form #f="ngForm" (ngSubmit)="onSingIn(f)" class="center">
+      <form (ngSubmit)="singUp()" class="center">
         <div class="field">
-          <label class="label-field" for="nick">Name</label>
-          <input type="email" id="nick" name="text" ngModel required>
+          <label class="label-field" for="name">Name</label>
+          <input type="text" id="name" name="name" ngModel required>
         </div>
         <div class="field">
           <label class="label-field" for="emailUp">Email</label>
           <input type="email" id="emailUp" name="email" ngModel required>
         </div>
         <div class="field">
-          <label class="label-field" for="passwordUp">Password</label>
-          <input type="password" id="passwordUp" name="password" ngModel required>
+          <label class="label-field" (mousedown)="inputType='text'" (mouseout)="inputType='password'" (mouseup)="inputType='password'" for="passwordUp">Password</label>
+          <input [type]="inputType" id="passwordUp" name="password" ngModel required>
         </div>
         <button type="submit">Sign up</button>
       </form>

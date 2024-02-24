@@ -1,0 +1,28 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "MySite.protobufs";
+
+package v1;
+
+service AuthorizationService {
+  rpc Login(LoginRequest) returns (TokenReply) {}
+  rpc Registration(RegistrationRequest) returns (TokenReply) {}
+}
+
+message LoginRequest {
+  string Email = 1;
+  string Password = 2;
+}
+
+message RegistrationRequest {
+  string Email = 1;
+  string Password = 2;
+  string Name = 3;
+}
+
+message TokenReply {
+  oneof result {
+    string JwtToken = 1;
+    string Error = 2;
+  }
+}

@@ -21,6 +21,7 @@
   --footnote: .85vw/1.5vw 'M_PLUS_1';
   --navMenu: 1.4vw/1.5vw 'Metrophobic';
   --sumbit: 1.25vw/1.5vw 'M_PLUS_1_Regular';
+  --littleInput: 0.9vw/1.5vw 'M_PLUS_1_Regular';
 
   /* Other */
   --button-blur: blur(2.85vw);
@@ -52,6 +53,7 @@
 }
 
 html {
+  caret-color: var(--Accent);
   letter-spacing: -.1px;
 }
 

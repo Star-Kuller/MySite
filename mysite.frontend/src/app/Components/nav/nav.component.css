@@ -47,12 +47,20 @@ span {
 input[type="email"], input[type="password"], input[type="text"]{
   width: 100%;
   color: var(--Primary);
-  font: var(--body2);
+  font: var(--littleInput);
   border-radius: 2.5vw;
   background-color: transparent;
   border: .27vw var(--border) solid;
   backdrop-filter: var(--button-blur);
   padding: .45vw .6vw;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active  {
+  transition: background-color 5000s;
+  -webkit-text-fill-color: var(--Primary) !important;
 }
 
 input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focus {
@@ -68,6 +76,7 @@ input[type="email"]:focus, input[type="password"]:focus, input[type="text"]:focu
 }
 
 button {
+  outline: none;
   margin: .5vw;
   background-color: transparent;
   border: none;

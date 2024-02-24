@@ -12,7 +12,6 @@ export class AccountComponent {
   constructor(private MessageBusService: MessageBusService) { }
   AccountClick() {
     this.isAuthMode = !this.isAuthMode;
-    console.log(this.isAuthMode)
     if(this.isAuthMode)
       this.MessageBusService.AuthModeState();
     else
