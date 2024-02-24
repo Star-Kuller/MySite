@@ -29,15 +29,15 @@
       <form (ngSubmit)="singUp()" class="center">
         <div class="field">
           <label class="label-field" for="name">Name</label>
-          <input type="text" id="name" name="name" ngModel required>
+          <input [(ngModel)]="registrationForm.Name" type="text" id="name" name="name" ngModel required>
         </div>
         <div class="field">
           <label class="label-field" for="emailUp">Email</label>
-          <input type="email" id="emailUp" name="email" ngModel required>
+          <input [(ngModel)]="registrationForm.Email" type="email" id="emailUp" name="email" ngModel required>
         </div>
         <div class="field">
           <label class="label-field" (mousedown)="inputType='text'" (mouseout)="inputType='password'" (mouseup)="inputType='password'" for="passwordUp">Password</label>
-          <input [type]="inputType" id="passwordUp" name="password" ngModel required>
+          <input [(ngModel)]="registrationForm.Password"  [type]="inputType" id="passwordUp" name="password" ngModel required>
         </div>
         <button type="submit">Sign up</button>
       </form>

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using MySite.Application.Features.Account;
+using MySite.Application.Infrastructure.AutoMapper;
 using MySite.Application.Interfaces;
 using MySite.Application.Security;
 using MySite.Domain.Entities.User;
@@ -27,6 +28,8 @@ services.AddCors(o => o.AddPolicy("AllowAll", builder =>
         .AllowAnyHeader()
         .WithExposedHeaders("Grpc-Status", "Grpc-Message", "Grpc-Encoding", "Grpc-Accept-Encoding");
 }));
+// Add AutoMapper
+services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
 
 services.AddMediatR(typeof(Login).Assembly);
 
@@ -35,32 +38,56 @@ services.AddDbContext<MyDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("Database")));
 services.AddTransient<IMyDbContext, MyDbContext>();
 
-services.AddAuthorization();
+
+// services.AddAuthorization(options =>
+// {
+//     options.AddPolicy(JwtBearerDefaults.AuthenticationScheme, policy =>
+//     {
+//         policy.AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme);
+//         policy.RequireClaim(ClaimTypes.Sid, ClaimTypes.Role);
+//     });
+// });
 
 //Add authentication            
 services.Configure<TokenManagement>(builder.Configuration.GetSection("TokenManagement"));
 var token = builder.Configuration.GetSection("TokenManagement").Get<TokenManagement>();
 
-services.AddAuthentication(x =>
+// services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+//     .AddJwtBearer(x =>
+// {
+//     x.RequireHttpsMetadata = false;
+//     x.SaveToken = true;
+//     x.TokenValidationParameters = new TokenValidationParameters
+//     {
+//         ValidateAudience = false,
+//         ValidateIssuer = false,
+//         ValidateActor = false,
+//         ValidateLifetime = true,
+//         IssuerSigningKey = token.SecurityKey
+//     };
+// });
+
+builder.Services.AddAuthorization(options =>
 {
-    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(x =>
-{
-    x.RequireHttpsMetadata = false;
-    x.SaveToken = true;
-    x.TokenValidationParameters = new TokenValidationParameters
+    options.AddPolicy(JwtBearerDefaults.AuthenticationScheme, policy =>
     {
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = token.SecurityKey,
-        ValidIssuer = token.Issuer,
-        ValidateIssuer = false,
-        ValidateAudience = false,
-        ValidAudience = token.Audience,
-        ValidateLifetime = true,
-        RoleClaimType = ClaimTypes.Role
-    };
+        policy.AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme);
+        policy.RequireClaim(ClaimTypes.Name);
+    });
 });
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters =
+            new TokenValidationParameters
+            {
+                ValidateAudience = false,
+                ValidateIssuer = false,
+                ValidateActor = false,
+                ValidateLifetime = true,
+                IssuerSigningKey = token.SecurityKey
+            };
+    });
 services.AddTransient<ITokenProvider, JwtTokenProvider>();
 services.AddScoped<ICurrentUser, CurrentUser>();
 services.AddTransient<CurrentUserMiddleware>();

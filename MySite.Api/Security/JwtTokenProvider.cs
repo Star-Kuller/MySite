@@ -23,7 +23,6 @@ namespace MySite.Security
                 claims: new List<Claim>
                 {
                     new Claim(ClaimTypes.Sid, userClaims.Id.ToString()),
-                    new Claim(ClaimTypes.Email, userClaims.Email),
                     new Claim(ClaimTypes.Role, userClaims.Role),
                 },
                 notBefore: DateTime.UtcNow,

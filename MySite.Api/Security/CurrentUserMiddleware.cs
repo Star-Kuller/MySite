@@ -12,13 +12,15 @@ namespace MySite.Security
         private readonly ICurrentUser _currentUser;
         private readonly UserManager<User> _userManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ILogger<CurrentUserMiddleware> _logger;
 
         public CurrentUserMiddleware(
-            ICurrentUser currentUser, UserManager<User> userManager, IHttpContextAccessor httpContextAccessor)
+            ICurrentUser currentUser, UserManager<User> userManager, IHttpContextAccessor httpContextAccessor, ILogger<CurrentUserMiddleware> logger)
         {
             _currentUser = currentUser;
             _userManager = userManager;
             _httpContextAccessor = httpContextAccessor;
+            _logger = logger;
         }
 
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
@@ -49,6 +51,8 @@ namespace MySite.Security
             _currentUser.Role = context.User.FindFirst(ClaimTypes.Role)?.Value;
             _currentUser.IpAddress = _httpContextAccessor.HttpContext?.Connection?.RemoteIpAddress?.MapToIPv4()?.ToString();
             _currentUser.UserAgent = GetHeaderValue("User-Agent");
+            
+            _logger.LogInformation($"Id: {_currentUser.Id}, Email:{_currentUser.Email}, Role:{_currentUser.Role}, IP: {_currentUser.Id}, UserAgent: {_currentUser.UserAgent}");
             await next(context);
         }
 

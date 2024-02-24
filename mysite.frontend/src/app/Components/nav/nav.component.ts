@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MessageBusService} from "../../Services/MessageBus.service";
 import {AuthorizationService} from "../../Services/authorization.service";
 import {Login} from "../../models/Account/Login";
+import {Registration} from "../../models/Account/Registration";
 
 @Component({
   selector: 'left-panel',
@@ -15,6 +16,7 @@ export class NavComponent implements OnInit {
   inputType = 'password';
 
   loginForm : Login = new Login();
+  registrationForm : Registration = new Registration();
 
   constructor(private MessageBusService: MessageBusService, private AuthorizationService: AuthorizationService) { }
 
@@ -30,11 +32,11 @@ export class NavComponent implements OnInit {
     this.isAuthMode = true;
   }
 
-  singIn() {
-    this.AuthorizationService.Login(this.loginForm)
+  async singIn() {
+    await this.AuthorizationService.Login(this.loginForm)
   }
 
-  singUp() {
-    console.log();
+  async singUp() {
+    await this.AuthorizationService.Registration(this.registrationForm);
   }
 }

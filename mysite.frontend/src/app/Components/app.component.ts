@@ -14,9 +14,9 @@ import {AppModule} from "../app.module";
   ],
   standalone: true
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 
-  public title = 'grpc-web-demo';
+  /*public title = 'grpc-web-demo';
   public countries: CountryModel[] = [];
 
   public ngOnInit() {
@@ -61,5 +61,5 @@ export class AppComponent implements OnInit {
         }
       }
     });
-  }
+  }*/
 }

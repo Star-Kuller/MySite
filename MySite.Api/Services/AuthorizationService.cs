@@ -6,7 +6,6 @@ using MySite.protobufs;
 using Base = MySite.protobufs.AuthorizationService.AuthorizationServiceBase;
 namespace MySite.Services;
 
-[AllowAnonymous]
 public class AuthorizationService : Base
 {
     private readonly ILogger<AuthorizationService> _logger;
@@ -44,8 +43,31 @@ public class AuthorizationService : Base
         }
     }
 
-    public override Task<TokenReply> Registration(RegistrationRequest request, ServerCallContext context)
+    [Authorize]
+    public override async Task<TokenReply> Registration(RegistrationRequest request, ServerCallContext context)
     {
-        return base.Registration(request, context);
+        _logger.LogInformation($"Name: {request.Name} Login: {request.Email} Password: {request.Password}");
+        try
+        {
+            var token = await _mediator.Send(new Register.Command
+            {
+                Name = request.Name,
+                Email = request.Email,
+                Password = request.Password
+            });
+            
+            return new TokenReply
+            {
+                JwtToken = token
+            };
+        }
+        catch (Exception e)
+        {
+            _logger.LogWarning(e.Message);
+            return new TokenReply
+            {
+                Error = e.Message
+            };
+        }
     }
 }
