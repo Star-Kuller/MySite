@@ -8,7 +8,7 @@ import {UnaryMethodDefinition} from "@improbable-eng/grpc-web/dist/typings/servi
 })
 export class GrpcClientService {
   get jwtToken(): string {
-    return `Bearer ${this._jwtToken}`;
+    return 'Bearer'.concat(' ', this._jwtToken);
   }
 
   set jwtToken(value: string) {

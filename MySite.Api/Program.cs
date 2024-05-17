@@ -1,9 +1,10 @@
-using System.Security.Claims;
+using System.IdentityModel.Tokens.Jwt;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using MySite.Application.Features.Account;
 using MySite.Application.Infrastructure.AutoMapper;
 using MySite.Application.Interfaces;
@@ -20,7 +21,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var services = builder.Services;
-services.AddGrpc();
+
+services.AddGrpc().AddJsonTranscoding();
+services.AddGrpcSwagger();
+services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1",
+        new OpenApiInfo { Title = "gRPC", Version = "v1" });
+});
 services.AddCors(o => o.AddPolicy("AllowAll", builder =>
 {
     builder.AllowAnyOrigin()
@@ -38,6 +46,23 @@ services.AddDbContext<MyDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("Database")));
 services.AddTransient<IMyDbContext, MyDbContext>();
 
+
+
+services.AddIdentity<User, Role>(options =>
+    {
+        options.Password.RequiredLength = 6;
+        options.Password.RequireLowercase = false;
+        options.Password.RequireUppercase = false;
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequireDigit = false;
+        options.User.RequireUniqueEmail = true;
+
+        //For email confirmations and reset passwords using email token provider that generate 6 digits short lived code.
+        options.Tokens.EmailConfirmationTokenProvider = TokenOptions.DefaultEmailProvider;
+        options.Tokens.PasswordResetTokenProvider = TokenOptions.DefaultEmailProvider;
+    })
+    .AddEntityFrameworkStores<MyDbContext>()
+    .AddDefaultTokenProviders();
 
 // services.AddAuthorization(options =>
 // {
@@ -69,10 +94,10 @@ var token = builder.Configuration.GetSection("TokenManagement").Get<TokenManagem
 
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy(JwtBearerDefaults.AuthenticationScheme, policy =>
+    options.AddPolicy("Admin", p =>
     {
-        policy.AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme);
-        policy.RequireClaim(ClaimTypes.Name);
+        p.AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme);
+        p.RequireRole(Role.Administrator);
     });
 });
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -92,23 +117,9 @@ services.AddTransient<ITokenProvider, JwtTokenProvider>();
 services.AddScoped<ICurrentUser, CurrentUser>();
 services.AddTransient<CurrentUserMiddleware>();
 
-services.AddIdentity<User, Role>(options =>
-    {
-        options.Password.RequiredLength = 6;
-        options.Password.RequireLowercase = false;
-        options.Password.RequireUppercase = false;
-        options.Password.RequireNonAlphanumeric = false;
-        options.Password.RequireDigit = false;
-        options.User.RequireUniqueEmail = true;
-
-        //For email confirmations and reset passwords using email token provider that generate 6 digits short lived code.
-        options.Tokens.EmailConfirmationTokenProvider = TokenOptions.DefaultEmailProvider;
-        options.Tokens.PasswordResetTokenProvider = TokenOptions.DefaultEmailProvider;
-    })
-    .AddEntityFrameworkStores<MyDbContext>()
-    .AddDefaultTokenProviders();
-
 var app = builder.Build();
+
+JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 
 // Configure the HTTP request pipeline.
 app.UseGrpcWeb();
@@ -118,6 +129,12 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseMiddleware<CurrentUserMiddleware>();
+
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+});
 
 app.MapGrpcService<GreeterService>().EnableGrpcWeb().RequireCors("AllowAll");
 app.MapGrpcService<AuthorizationService>().EnableGrpcWeb().RequireCors("AllowAll");
