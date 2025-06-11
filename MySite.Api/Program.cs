@@ -77,21 +77,6 @@ services.AddIdentity<User, Role>(options =>
 services.Configure<TokenManagement>(builder.Configuration.GetSection("TokenManagement"));
 var token = builder.Configuration.GetSection("TokenManagement").Get<TokenManagement>();
 
-// services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-//     .AddJwtBearer(x =>
-// {
-//     x.RequireHttpsMetadata = false;
-//     x.SaveToken = true;
-//     x.TokenValidationParameters = new TokenValidationParameters
-//     {
-//         ValidateAudience = false,
-//         ValidateIssuer = false,
-//         ValidateActor = false,
-//         ValidateLifetime = true,
-//         IssuerSigningKey = token.SecurityKey
-//     };
-// });
-
 builder.Services.AddAuthorization(options =>
 {
     options.AddPolicy("Admin", p =>
